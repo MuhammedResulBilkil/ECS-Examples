@@ -1,9 +1,7 @@
-using System;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class PlayerVisual : MonoBehaviour
 {

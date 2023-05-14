@@ -18,7 +18,7 @@ public partial class PlayerSpawnerSystem : SystemBase
         {
             Entity spawnedEntity = entityCommandBuffer.Instantiate(playerSpawnerComponent.playerPrefab);
             
-            entityCommandBuffer.SetComponent(spawnedEntity, new Speed
+            entityCommandBuffer.SetComponent(spawnedEntity, new MoveSpeedComponent
             {
                 moveSpeed = randomComponent.ValueRW.random.NextFloat(1f, 5f)
             });

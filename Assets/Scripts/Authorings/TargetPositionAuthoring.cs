@@ -13,7 +13,7 @@ public class TargetPositionBaker : Baker<TargetPositionAuthoring>
     {
         Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
 
-        AddComponent(entity, new TargetPosition
+        AddComponent(entity, new TargetPositionComponent
         {
             targetPosition = authoring.targetPosition
         });

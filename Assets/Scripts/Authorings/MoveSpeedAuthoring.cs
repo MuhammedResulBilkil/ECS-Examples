@@ -1,18 +1,18 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-public class SpeedAuthoring : MonoBehaviour
+public class MoveSpeedAuthoring : MonoBehaviour
 {
     public float moveSpeed;
 }
 
-public class SpeedBaker : Baker<SpeedAuthoring>
+public class MoveSpeedBaker : Baker<MoveSpeedAuthoring>
 {
-    public override void Bake(SpeedAuthoring authoring)
+    public override void Bake(MoveSpeedAuthoring authoring)
     {
         Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
 
-        AddComponent(entity, new Speed
+        AddComponent(entity, new MoveSpeedComponent
         {
             moveSpeed = authoring.moveSpeed
         });

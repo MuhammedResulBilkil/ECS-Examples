@@ -7,8 +7,8 @@ public readonly partial struct MoveToPositionAspect : IAspect
     private readonly Entity _entity;
 
     private readonly RefRW<LocalTransform> _localTransform;
-    private readonly RefRO<Speed> _speed;
-    private readonly RefRW<TargetPosition> _targetPosition;
+    private readonly RefRO<MoveSpeedComponent> _speed;
+    private readonly RefRW<TargetPositionComponent> _targetPosition;
 
     public void Move(float deltaTime)
     {
