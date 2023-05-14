@@ -11,7 +11,7 @@ public class SpeedBaker : Baker<SpeedAuthoring>
     public override void Bake(SpeedAuthoring authoring)
     {
         Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
-        
+
         AddComponent(entity, new Speed
         {
             moveSpeed = authoring.moveSpeed
