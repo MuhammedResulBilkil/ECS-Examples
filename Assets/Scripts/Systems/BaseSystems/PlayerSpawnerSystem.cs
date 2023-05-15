@@ -2,19 +2,23 @@ using Unity.Entities;
 
 public partial class PlayerSpawnerSystem : SystemBase
 {
-    protected override void OnUpdate()
-    {
-        EntityQuery playerEntityQuery = EntityManager.CreateEntityQuery(typeof(PlayerTagComponent));
-        
-        PlayerSpawnerComponent playerSpawnerComponent = SystemAPI.GetSingleton<PlayerSpawnerComponent>();
-        RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
+    private int _spawnAmount = 10000;
 
+    protected override void OnStartRunning()
+    {
+        base.OnStartRunning();
+        
+        /*RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
+        RequireForUpdate<PlayerSpawnerComponent>();
+        RequireForUpdate<RandomComponent>();*/
+        
         EntityCommandBuffer entityCommandBuffer = SystemAPI
             .GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(World.Unmanaged);
 
-        int spawnAmount = 10000;
+        PlayerSpawnerComponent playerSpawnerComponent = SystemAPI.GetSingleton<PlayerSpawnerComponent>();
+        RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
 
-        if (playerEntityQuery.CalculateEntityCount() < spawnAmount)
+        for (int i = 0; i < _spawnAmount; i++)
         {
             Entity spawnedEntity = entityCommandBuffer.Instantiate(playerSpawnerComponent.playerPrefab);
             
@@ -23,5 +27,26 @@ public partial class PlayerSpawnerSystem : SystemBase
                 moveSpeed = randomComponent.ValueRW.random.NextFloat(1f, 5f)
             });
         }
+    }
+
+    protected override void OnUpdate()
+    {
+        /*EntityQuery playerEntityQuery = EntityManager.CreateEntityQuery(typeof(PlayerTagComponent));
+        
+        PlayerSpawnerComponent playerSpawnerComponent = SystemAPI.GetSingleton<PlayerSpawnerComponent>();
+        RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
+
+        EntityCommandBuffer entityCommandBuffer = SystemAPI
+            .GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(World.Unmanaged);
+
+        if (playerEntityQuery.CalculateEntityCount() < _spawnAmount)
+        {
+            Entity spawnedEntity = entityCommandBuffer.Instantiate(playerSpawnerComponent.playerPrefab);
+            
+            entityCommandBuffer.SetComponent(spawnedEntity, new MoveSpeedComponent
+            {
+                moveSpeed = randomComponent.ValueRW.random.NextFloat(1f, 5f)
+            });
+        }*/
     }
 }
